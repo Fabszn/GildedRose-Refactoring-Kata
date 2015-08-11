@@ -5,6 +5,10 @@ package com.gildedrose
  */
 object ItemFactory {
 
+  val MAX_QUALITY = 50
+  val ELEVEN_STEP_SELLIN = 11
+  val SIX_STEP_SELLIN = 6
+
   /**
    * generic trait
    */
@@ -17,7 +21,7 @@ object ItemFactory {
     def updateSellin() {}
 
     def incQuality() = {
-      if (item.quality < 50) {
+      if (item.quality < MAX_QUALITY) {
         item.quality += 1
       }
     }
@@ -28,11 +32,11 @@ object ItemFactory {
     override def updateQuality() = {
       incQuality()
 
-      if (item.sellIn < 11) {
+      if (item.sellIn < ELEVEN_STEP_SELLIN) {
         incQuality()
       }
 
-      if (item.sellIn < 6) {
+      if (item.sellIn < SIX_STEP_SELLIN) {
         incQuality()
       }
     }
@@ -51,7 +55,6 @@ object ItemFactory {
 
   trait FoodItem extends ItemService {
 
-
     override def updateQuality() = {
       incQuality()
     }
@@ -66,7 +69,6 @@ object ItemFactory {
   }
 
   trait DefaultItem extends ItemService {
-
 
     override def updateQuality() = {
       if (item.quality > 0) {
@@ -92,7 +94,6 @@ object ItemFactory {
       case "Sulfuras, Hand of Ragnaros" => new Wrapper(item) with LegendaryItem
       case _ => new Wrapper(item) with DefaultItem
     }
-
 
   }
 
